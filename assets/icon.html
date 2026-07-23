@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: #0E0D12; }
+  body { display: grid; place-items: center; }
+  /* 12% safe padding each side — mark fills the middle 76vmin */
+  .mark { width: 76vmin; height: 76vmin; display: block; }
+</style>
+</head>
+<body>
+  <!-- the girvi staircase, annotated: the explainer's lens dot on the plateau -->
+  <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+    <g fill="#9B82FF">
+      <rect x="4"  y="14" width="18" height="46" rx="2"/>
+      <rect x="23" y="24" width="18" height="36" rx="2"/>
+      <rect x="42" y="34" width="18" height="26" rx="2"/>
+    </g>
+    <g fill="#0E0D12" opacity="0.85">
+      <rect x="7"  y="17" width="3" height="3"/><rect x="12" y="17" width="3" height="3"/>
+      <rect x="26" y="27" width="3" height="3"/><rect x="31" y="27" width="3" height="3"/>
+      <rect x="45" y="37" width="3" height="3"/><rect x="50" y="37" width="3" height="3"/>
+    </g>
+    <circle cx="41" cy="24" r="9.5" fill="#0E0D12"/>
+    <circle cx="41" cy="24" r="9.5" fill="none" stroke="#FFB65C" stroke-width="3.5"/>
+    <circle cx="41" cy="24" r="3.4" fill="#FFB65C"/>
+  </svg>
+</body>
+</html>

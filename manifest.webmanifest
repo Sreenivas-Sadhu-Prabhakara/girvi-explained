@@ -1,0 +1,24 @@
+{
+  "name": "girvi explained",
+  "short_name": "girvi explained",
+  "description": "An animated, interactive explainer of the RBI 2025 gold-loan LTV rules — the 85/80/75% staircase, plateau zones, bullet vs EMI and margin calls — companion to the girvi calculator.",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#0E0D12",
+  "theme_color": "#0E0D12",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

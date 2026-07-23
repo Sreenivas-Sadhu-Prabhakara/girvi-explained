@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'none'; img-src 'self' data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; object-src 'none'">
+  <title>girvi explained — how RBI's tiered gold loan LTV caps work, animated</title>
+  <meta name="description" content="Gold loan LTV caps explained with animation: how the RBI 2025 Lending-Against-Gold Directions' tiered 85/80/75% caps, plateau zones, bullet-vs-EMI cost and margin calls really work — and how the girvi calculator computes your lawful ceiling with zero network access.">
+  <meta name="color-scheme" content="dark light">
+  <link rel="canonical" href="https://sreenivas-sadhu-prabhakara.github.io/girvi-explained/">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="Sreenivas Sadhu Prabhakara">
+  <meta name="keywords" content="gold loan ltv explained, rbi gold loan rules 2025, gold loan ltv calculator, how gold loan ltv is calculated, rbi ltv caps, gold loan bullet repayment, gold loan margin call, girvi calculator">
+  <meta name="theme-color" content="#0E0D12" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#EFEDF6" media="(prefers-color-scheme: light)">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="girvi explained">
+  <meta property="og:title" content="girvi explained — how RBI's tiered gold loan LTV caps work, animated">
+  <meta property="og:description" content="The 85/80/75% staircase, the two plateau zones, bullet vs EMI true cost and margin calls — the RBI 2025 gold-loan rules, animated. Companion to the girvi calculator.">
+  <meta property="og:url" content="https://sreenivas-sadhu-prabhakara.github.io/girvi-explained/">
+  <meta property="og:locale" content="en_IN">
+  <meta property="og:image" content="https://sreenivas-sadhu-prabhakara.github.io/girvi-explained/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="girvi explained — the 85/80/75 LTV staircase with an annotated plateau, animated gold-loan rules">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="girvi explained — how RBI's tiered gold loan LTV caps work, animated">
+  <meta name="twitter:description" content="The 85/80/75% staircase, the two plateau zones, bullet vs EMI true cost and margin calls — the RBI 2025 gold-loan rules, animated.">
+  <meta name="twitter:image" content="https://sreenivas-sadhu-prabhakara.github.io/girvi-explained/og-image.png">
+  <meta name="twitter:image:alt" content="girvi explained — the 85/80/75 LTV staircase with an annotated plateau, animated gold-loan rules">
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+
+  <!-- Structured data (data blocks; not executable script) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "girvi explained",
+    "description": "An animated, interactive explainer of the RBI (Lending Against Gold and Silver Collateral) Directions, 2025: how the tiered 85/80/75% LTV caps, plateau zones, bullet-vs-EMI cost and margin calls determine the maximum lawful gold loan — with a live drag-the-value ceiling demo. Companion to the girvi calculator; runs fully offline.",
+    "url": "https://sreenivas-sadhu-prabhakara.github.io/girvi-explained/",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any (modern web browser)",
+    "browserRequirements": "Requires a modern web browser. Readable without JavaScript; the interactive demo needs it.",
+    "isAccessibleForFree": true,
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
+    "license": "https://opensource.org/licenses/MIT",
+    "author": { "@type": "Person", "name": "Sreenivas Sadhu Prabhakara" },
+    "softwareVersion": "0.1.0",
+    "featureList": [
+      "Animated 85/80/75% LTV staircase from the RBI 2025 Directions (Para 19)",
+      "Interactive drag-the-value demo of the lawful ceiling, including both plateau zones",
+      "Bullet vs EMI true-cost scene with the repayable-at-maturity cap rule (Para 6(v))",
+      "Margin-call headroom scene (Para 20: LTV maintained throughout the tenor)",
+      "Plain-language walkthrough of the connect-src 'none' no-network privacy guarantee",
+      "Every rule clause-cited with a verified-on date; links to the girvi calculator"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is the LTV of a gold loan calculated under the RBI 2025 rules?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Since 1 April 2026, consumption gold loans are capped by tiered loan-to-value ratios under the RBI (Lending Against Gold and Silver Collateral) Directions, 2025: 85% of collateral value where the total consumption loan per borrower is up to ₹2.5 lakh, 80% above ₹2.5 lakh up to ₹5 lakh, and 75% above ₹5 lakh. The tier is chosen by the loan itself, which creates two plateau zones where more gold does not raise the ceiling. This page animates that math; the girvi calculator computes it for your ornaments."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is a bullet-repayment gold loan capped lower than an EMI loan?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Because Para 6(v) of the Directions computes bullet-loan LTV on the total amount repayable at maturity — principal plus all interest — not the amount disbursed. Bullet consumption loans are also capped at a 12-month tenor (Para 15). The animation shows the same ₹2,00,000 loan costing ₹2,24,000 bullet vs ₹2,13,237.12 on EMI at 12% for 12 months."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this page or the girvi calculator send my data anywhere or use live gold prices?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Both pages ship a Content-Security-Policy with connect-src 'none' — the browser itself refuses every network request, so nothing you type can leave your device. There are no live rates by design: in girvi you type the 22-carat reference rate yourself, and the only thing stored is your pledge list, in your own browser's localStorage."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a gold loan margin call and when does it happen?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Para 20 of the RBI 2025 Directions requires the LTV cap to be maintained on an ongoing basis throughout the loan's tenor — not just on sanction day. If the reference price of gold falls far enough that your outstanding loan breaches the cap, the lender must act, typically by asking for part-payment or more collateral. girvi shows the exact price-fall percentage at which your loan would breach."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#story">Skip to the explainer</a>
+
+  <header class="hero">
+    <nav class="topbar" aria-label="Site">
+      <span class="brand">
+        <svg class="brand__mark" viewBox="0 0 32 32" role="presentation" aria-hidden="true">
+          <path d="M4 26 h8 v-7 h8 v-7 h8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"/>
+          <circle cx="20" cy="19" r="3.4" fill="currentColor"/>
+        </svg>
+        girvi <span class="brand__x">explained</span>
+      </span>
+      <span class="topbar__actions">
+        <button type="button" id="themeToggle" class="btn btn--ghost" aria-pressed="false">Switch to light</button>
+        <a class="btn btn--primary topbar__cta" href="https://sreenivas-sadhu-prabhakara.github.io/girvi/">Open girvi</a>
+      </span>
+    </nav>
+
+    <div class="hero__inner">
+      <div class="hero__copy">
+        <p class="eyebrow">Animated explainer · RBI 2025 Directions</p>
+        <h1>Gold loan LTV caps, explained — how the girvi calculator finds your maximum lawful loan</h1>
+        <p class="lede">Since <strong>1 April 2026</strong>, every bank, co-operative bank and NBFC in India is bound by the tiered loan-to-value caps of the <em>Reserve Bank of India (Lending Against Gold and Silver Collateral) Directions, 2025</em>. Branches still quote a flat &ldquo;per gram&rdquo; number. This page animates the math they don&rsquo;t show you — the same math <a href="https://sreenivas-sadhu-prabhakara.github.io/girvi/">girvi</a> runs entirely on your device.</p>
+        <p class="hero__cta">
+          <a class="btn btn--primary" href="https://sreenivas-sadhu-prabhakara.github.io/girvi/">Open the calculator</a>
+          <a class="btn btn--ghost" href="#story">See how it works ↓</a>
+        </p>
+      </div>
+
+      <figure class="hero__fig scene" aria-hidden="false">
+        <svg class="stairsvg" viewBox="0 0 460 310" role="img" aria-label="The LTV staircase: 85 percent up to 2.5 lakh rupees, 80 percent to 5 lakh, 75 percent above 5 lakh">
+          <g class="stair stair--1">
+            <rect class="stair__block" x="18"  y="64"  width="136" height="216" rx="6"/>
+            <rect class="punch" x="30" y="76" width="7" height="7"/><rect class="punch" x="42" y="76" width="7" height="7"/>
+            <text class="stair__pct"  x="86"  y="150">85%</text>
+            <text class="stair__band" x="86"  y="178">≤ ₹2.5 L</text>
+          </g>
+          <g class="stair stair--2">
+            <rect class="stair__block" x="162" y="116" width="136" height="164" rx="6"/>
+            <rect class="punch" x="174" y="128" width="7" height="7"/><rect class="punch" x="186" y="128" width="7" height="7"/>
+            <text class="stair__pct"  x="230" y="196">80%</text>
+            <text class="stair__band" x="230" y="224">₹2.5–5 L</text>
+          </g>
+          <g class="stair stair--3">
+            <rect class="stair__block" x="306" y="168" width="136" height="112" rx="6"/>
+            <rect class="punch" x="318" y="180" width="7" height="7"/><rect class="punch" x="330" y="180" width="7" height="7"/>
+            <text class="stair__pct"  x="374" y="228">75%</text>
+            <text class="stair__band" x="374" y="256">&gt; ₹5 L</text>
+          </g>
+          <text class="stair__caption" x="18" y="302">Para 19 — the cap steps DOWN as the loan grows</text>
+        </svg>
+        <figcaption class="visually-hidden">The tiered LTV staircase from Para 19 of the RBI 2025 Directions.</figcaption>
+      </figure>
+    </div>
+  </header>
+
+  <main id="story">
+
+    <!-- ============ 1. the problem ============ -->
+    <section class="chapter scene" aria-labelledby="problemH">
+      <p class="chapnum">01</p>
+      <h2 id="problemH">The branch quotes ₹ per gram. The law speaks in LTV.</h2>
+      <p class="chapter__lede">Walk into any branch with your bangles and you hear one number: <em>&ldquo;₹4,300 per gram, madam.&rdquo;</em> What actually decides your maximum loan is a piece of regulation most borrowers never see.</p>
+      <div class="versus">
+        <div class="versus__card versus__card--heard anim-slide-l">
+          <p class="versus__tag">What you hear</p>
+          <p class="versus__big">&ldquo;₹4,300 <span>per gram</span>&rdquo;</p>
+          <p class="versus__note">One flat number. No tier, no cap, no headroom — take it or leave it.</p>
+        </div>
+        <div class="versus__vs" aria-hidden="true">vs</div>
+        <div class="versus__card versus__card--law anim-slide-r">
+          <p class="versus__tag">What decides it</p>
+          <p class="versus__big">Para 19 <span>RBI 2025 Directions</span></p>
+          <p class="versus__note">Tiered caps of 85 / 80 / 75% of your gold&rsquo;s value, chosen by your <strong>total consumption loan per borrower</strong> — binding on every lender since 1 April 2026.</p>
+        </div>
+      </div>
+      <p class="chapter__note">girvi&rsquo;s job is to do the regulator&rsquo;s math in the open, clause by clause, before the branch quotes you.</p>
+    </section>
+
+    <!-- ============ 2. the staircase ============ -->
+    <section class="chapter scene" aria-labelledby="stairH">
+      <p class="chapnum">02</p>
+      <h2 id="stairH">The staircase: 85 → 80 → 75</h2>
+      <p class="chapter__lede">The cap is not one percentage — it is a staircase that steps <em>down</em> as the loan grows. And it is circular: the applicable cap depends on the loan, which depends on the cap. girvi solves that boundary exactly, in integer paise.</p>
+      <ul class="tierlist">
+        <li class="tierlist__item anim-pop"><span class="tierchip tierchip--1">85%</span><span>of collateral value when your total consumption loan is <strong>up to ₹2.5 lakh</strong></span></li>
+        <li class="tierlist__item anim-pop"><span class="tierchip tierchip--2">80%</span><span>when it is <strong>above ₹2.5 lakh, up to ₹5 lakh</strong></span></li>
+        <li class="tierlist__item anim-pop"><span class="tierchip tierchip--3">75%</span><span>when it is <strong>above ₹5 lakh</strong></span></li>
+      </ul>
+      <p class="chapter__note">The tier is chosen by your <strong>total</strong> consumption loan amount per borrower — an existing gold loan with the same lender can push a new one into a lower tier.</p>
+    </section>
+
+    <!-- ============ 3. the ceiling curve + interactive demo ============ -->
+    <section class="chapter scene" aria-labelledby="curveH">
+      <p class="chapnum">03</p>
+      <h2 id="curveH">Two plateaus, where more gold buys nothing</h2>
+      <p class="chapter__lede">Plot the lawful ceiling against collateral value and the staircase leaves two flat shelves. Between <strong>≈ ₹2,94,118 and ₹3,12,500</strong> of gold value the ceiling is pinned at <strong>₹2.5 lakh</strong>; between <strong>₹6,25,000 and ≈ ₹6,66,667</strong> it is pinned at <strong>₹5 lakh</strong>. Inside a plateau, pledging more gold does not raise the ceiling by a single rupee.</p>
+
+      <figure class="curvefig">
+        <svg class="curvesvg" viewBox="0 0 640 320" role="img" aria-label="Graph of the lawful ceiling against collateral value, showing two flat plateau shelves">
+          <rect class="curve__band" x="196.5" y="20" width="11" height="260"/>
+          <rect class="curve__band" x="395"   y="20" width="25" height="260"/>
+          <line class="curve__axis" x1="20" y1="280" x2="626" y2="280"/>
+          <line class="curve__axis" x1="20" y1="280" x2="20"  y2="16"/>
+          <path id="ceilPath" class="curve__line" d="M20 280 L196.5 198.75 L207.5 198.75 L395 117.5 L420 117.5 L620 36.25" pathLength="100"/>
+          <text class="curve__lab curve__lab--p" x="202" y="188">plateau ①</text>
+          <text class="curve__lab curve__lab--p" x="407" y="107">plateau ②</text>
+          <text class="curve__lab" x="322" y="304">collateral value →</text>
+          <text class="curve__lab curve__lab--y" x="30" y="30">lawful ceiling ↑</text>
+          <g id="demoMarker" class="curve__marker">
+            <line id="demoDropX" x1="188" y1="202.65" x2="188" y2="280"/>
+            <circle id="demoDot" cx="188" cy="202.65" r="7"/>
+          </g>
+        </svg>
+        <figcaption class="curvefig__cap">The ceiling curve of Para 19 — flat exactly where a higher loan would fall into a lower-cap tier.</figcaption>
+      </figure>
+
+      <div class="demo" aria-labelledby="demoH">
+        <h3 id="demoH">Try it — drag the value of your gold</h3>
+        <div class="demo__row">
+          <label class="demo__label" for="demoValue">Collateral value (₹)</label>
+          <input type="range" id="demoValue" min="20000" max="1000000" step="1000" value="280000"
+                 aria-describedby="demoOut">
+        </div>
+        <div class="demo__out" id="demoOut" aria-live="polite">
+          <p class="demo__figure"><span class="demo__k">Value</span> <output id="demoV" for="demoValue">₹2,80,000</output><span class="demo__arrow" aria-hidden="true">→</span><span class="demo__k">Lawful ceiling</span> <output id="demoC" for="demoValue">₹2,38,000</output> <span class="demo__tier" id="demoT">85% tier</span></p>
+          <p class="demo__plateau" id="demoP" hidden></p>
+        </div>
+        <p class="demo__note">This mini-demo runs the same paise-exact tier engine as girvi — with no network. In the app you build the value itself from weights, BIS purity grades and your typed 22K rate.</p>
+      </div>
+    </section>
+
+    <!-- ============ 4. bullet vs EMI ============ -->
+    <section class="chapter scene" aria-labelledby="costH">
+      <p class="chapnum">04</p>
+      <h2 id="costH">Bullet vs EMI — the interest counts against you twice</h2>
+      <p class="chapter__lede">A <strong>bullet loan</strong> is repaid in one shot at maturity. Para 6(v) computes its LTV on the <em>total amount repayable at maturity</em> — so the interest itself eats your ceiling — and Para 15 caps bullet consumption loans at <strong>12 months</strong>. Here is the same ₹2,00,000 at 12% for 12 months:</p>
+
+      <div class="bars" role="img" aria-label="Bar comparison: bullet total repayable 2,24,000 rupees of which 24,000 interest, versus EMI total 2,13,237.12 rupees of which 13,237.12 interest">
+        <div class="bars__col">
+          <div class="bar bar--bullet">
+            <div class="bar__seg bar__seg--int bar__seg--bint"><span>₹24,000 interest</span></div>
+            <div class="bar__seg bar__seg--prin bar__seg--bprin"><span>₹2,00,000 principal</span></div>
+          </div>
+          <p class="bar__total">₹2,24,000</p>
+          <p class="bar__name">Bullet — everything at maturity<br><span>and the whole ₹2,24,000 is checked against the cap</span></p>
+        </div>
+        <div class="bars__col">
+          <div class="bar bar--emi">
+            <div class="bar__seg bar__seg--int bar__seg--eint"><span>₹13,237.12 interest</span></div>
+            <div class="bar__seg bar__seg--prin bar__seg--eprin"><span>₹2,00,000 principal</span></div>
+          </div>
+          <p class="bar__total">₹2,13,237.12</p>
+          <p class="bar__name">EMI — ₹17,769.76 × 12 months<br><span>principal falls every month, so interest stays smaller</span></p>
+        </div>
+      </div>
+      <p class="chapter__note">Bullet interest here is <strong>simple interest — a labelled, editable assumption</strong> in girvi; lenders&rsquo; compounding and rests vary. girvi shows both totals side by side and re-checks the bullet repayable against your ceiling.</p>
+    </section>
+
+    <!-- ============ 5. margin call ============ -->
+    <section class="chapter scene" aria-labelledby="marginH">
+      <p class="chapnum">05</p>
+      <h2 id="marginH">The cap never sleeps: margin-call headroom</h2>
+      <p class="chapter__lede">Para 20 says the LTV cap must hold <em>on an ongoing basis throughout the tenor</em> — not just on sanction day. If gold&rsquo;s reference price falls far enough, your loan breaches the cap and the lender must act. girvi tells you the exact fall that gets you there.</p>
+
+      <figure class="meterfig">
+        <svg class="metersvg" viewBox="0 0 640 96" role="img" aria-label="Headroom meter: a 2 lakh rupee loan on 2.8 lakh rupees of gold breaches the cap after a 15.97 percent price fall">
+          <rect class="meter__track" x="12" y="38" width="616" height="16" rx="4"/>
+          <rect class="meter__fill"  x="12" y="38" width="196.7" height="16" rx="4"/>
+          <g class="meter__mark">
+            <line x1="208.7" y1="26" x2="208.7" y2="66"/>
+            <text x="216" y="34">−15.97% → breach</text>
+          </g>
+          <text class="meter__lab" x="12"  y="82">0% fall</text>
+          <text class="meter__lab meter__lab--end" x="628" y="82">−50% fall</text>
+        </svg>
+        <figcaption class="meterfig__cap">Example: a ₹2,00,000 loan on ₹2,80,000 of gold (85% tier) breaches its cap if the reference price falls 15.97%. At the full ₹2,38,000 ceiling, headroom is zero on day one.</figcaption>
+      </figure>
+    </section>
+
+    <!-- ============ 6. privacy ============ -->
+    <section class="chapter scene chapter--priv" aria-labelledby="privH">
+      <p class="chapnum">06</p>
+      <h2 id="privH">Why girvi has no live gold price — and why that&rsquo;s the point</h2>
+      <p class="chapter__lede">Your ornament list is a map of your family&rsquo;s wealth. So girvi ships a Content-Security-Policy with <code>connect-src 'none'</code>: the <strong>browser itself</strong> refuses every network request the page could ever make. Not a promise in a privacy policy — a rule the browser enforces.</p>
+
+      <div class="privline" aria-hidden="true">
+        <div class="priv__node">Your device<br><span>girvi + your pledge list</span></div>
+        <div class="priv__wire"><div class="priv__packet">your data</div></div>
+        <div class="priv__shield"><span class="priv__x">✕</span>CSP<br><span>connect-src 'none'</span></div>
+        <div class="priv__node priv__node--dim">The internet<br><span>never reached</span></div>
+      </div>
+      <p class="visually-hidden">Diagram: data leaving your device is blocked by the browser's Content-Security-Policy shield before it can ever reach the internet.</p>
+
+      <ul class="privlist">
+        <li><strong>You type the 22K rate</strong> — with an inline note that lenders must use the lower of the 30-day average and the previous day&rsquo;s IBJA 22-carat closing price (Para 17). No feed, no tracker, nothing to phone home.</li>
+        <li><strong>localStorage only</strong> — your pledge list lives in your browser; &ldquo;Erase everything&rdquo; removes it, and the CSV export is your backup.</li>
+        <li><strong>This page plays by the same rule</strong> — the explainer you are reading ships the identical CSP. View source and check.</li>
+      </ul>
+    </section>
+
+    <!-- ============ 7. feature tour ============ -->
+    <section class="chapter scene" aria-labelledby="tourH">
+      <p class="chapnum">07</p>
+      <h2 id="tourH">The tool, in six steps</h2>
+      <div class="tour">
+        <div class="tour__card anim-pop"><p class="tour__n">1</p><h3>Your ornaments</h3><p>Gross weight minus stones and other metal = net metal. BIS IS&nbsp;1417 purity picker: 585 / 750 / 833 / 916 / 958 / 995 — only the intrinsic metal counts (Para 18).</p></div>
+        <div class="tour__card anim-pop"><p class="tour__n">2</p><h3>You type the rate</h3><p>Enter the 22K reference rate per gram yourself; lower purities are converted proportionately to the 916 reference (Para 17). No live rate, by design.</p></div>
+        <div class="tour__card anim-pop"><p class="tour__n">3</p><h3>The lawful ceiling</h3><p>The paise-exact tier engine, plateau warnings in plain language, and a branch-offer check: <em>within</em> or <em>above</em> the legal cap.</p></div>
+        <div class="tour__card anim-pop"><p class="tour__n">4</p><h3>True cost</h3><p>Bullet vs EMI side by side, the 12-month bullet tenor warning (Para 15), and the repayable-at-maturity cap re-check (Para 6(v)).</p></div>
+        <div class="tour__card anim-pop"><p class="tour__n">5</p><h3>Margin-call headroom</h3><p>The exact price-fall percentage at which your loan breaches the always-on cap (Para 20), on the step-meter.</p></div>
+        <div class="tour__card anim-pop"><p class="tour__n">6</p><h3>Carry it to the branch</h3><p>A printable pledge sheet and RFC-4180 CSV — items, values, tier, ceiling, cost comparison — plus all 14 rules, clause-cited with verified-on dates.</p></div>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="ctaband scene" aria-labelledby="ctaH">
+      <svg class="ctaband__mark" viewBox="0 0 64 64" aria-hidden="true">
+        <g class="ctaband__steps">
+          <rect x="4"  y="14" width="18" height="46" rx="2"/>
+          <rect x="23" y="24" width="18" height="36" rx="2"/>
+          <rect x="42" y="34" width="18" height="26" rx="2"/>
+        </g>
+      </svg>
+      <h2 id="ctaH">Know your ceiling before the branch quotes you</h2>
+      <p>Free · open source · clause-cited · works offline · nothing leaves your browser.</p>
+      <p class="ctaband__btnrow"><a class="btn btn--big" href="https://sreenivas-sadhu-prabhakara.github.io/girvi/">Open the girvi calculator</a></p>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="foot__inner">
+      <h2 class="foot__h">Sources &amp; honesty</h2>
+      <ul class="foot__sources">
+        <li>All rules on this page are from the <a href="https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=12859&amp;Mode=0" rel="noopener">Reserve Bank of India (Lending Against Gold and Silver Collateral) Directions, 2025</a> (RBI/2025-26/47, issued 6 June 2025, updated 29 September 2025; in force for these caps since 1 April 2026), with clause references shown inline. Purity grades are the BIS IS&nbsp;1417 hallmarking grades. <strong>Verified on 2026-07-23</strong> — the RBI may amend the Directions after that date.</li>
+        <li>The ceiling is a <strong>legal maximum, not an offer</strong> — lenders may lawfully offer less. Lenders value your gold at their own IBJA-based reference price on sanction day, and the tiers apply to your <strong>total consumption loan per borrower</strong>, so an existing gold loan can lower your tier. Consumption loans against gold ornaments and coins only; income-generation and agri gold loans follow different norms.</li>
+        <li>The worked figures on this page (₹2,00,000 at 12% for 12 months; the 15.97% headroom example) use girvi&rsquo;s documented engine with bullet interest assumed <strong>simple</strong> — in the app every one of those assumptions is editable.</li>
+      </ul>
+      <p class="foot__disclaimer"><strong>Disclaimer:</strong> girvi explained is an informational page, <strong>not financial advice</strong> and not an offer of credit. It renders cited provisions of the RBI 2025 Directions with a verified-on date and never interprets beyond the published caps. Actual sanction, valuation and pricing are the lender&rsquo;s decisions — verify with your bank or NBFC. Provided &ldquo;as is&rdquo;, without warranty of any kind; the authors accept no liability for decisions made with it.</p>
+      <p class="foot__meta">
+        <span>girvi explained · MIT © 2026 Sreenivas Sadhu Prabhakara</span>
+        <span><a href="https://sreenivas-sadhu-prabhakara.github.io/girvi/">the girvi app</a> · <a href="https://github.com/Sreenivas-Sadhu-Prabhakara/girvi-explained" rel="noopener">source</a></span>
+      </p>
+    </div>
+  </footer>
+
+  <script src="data/tiers.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

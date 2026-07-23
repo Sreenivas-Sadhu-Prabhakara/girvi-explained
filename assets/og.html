@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  :root {
+    --bg: #0E0D12;
+    --card: #17151F;
+    --line: #2E2A3F;
+    --text: #EFEDF6;
+    --muted: #ABA5C3;
+    --violet: #9B82FF;
+    --warn: #FFB65C;
+    --ink: #0E0D12;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    position: relative;
+    background:
+      radial-gradient(1000px 560px at 88% -14%, rgba(124, 92, 255, 0.22), transparent 62%),
+      linear-gradient(180deg, #0B0A10 0%, #0E0D12 100%);
+    font-family: var(--sans);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+  }
+  .frame {
+    position: absolute; inset: 0;
+    padding: 74px 88px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .brand { display: flex; align-items: center; gap: 20px; }
+  .mark { width: 70px; height: 70px; }
+  .wordmark { font-size: 56px; font-weight: 800; letter-spacing: -0.035em; }
+  .wordmark span { font-weight: 550; color: var(--muted); }
+
+  .mid { display: flex; align-items: center; gap: 64px; }
+  .headline { max-width: 585px; }
+  .headline h1 {
+    font-size: 50px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.13;
+  }
+  .headline .v { color: var(--violet); }
+  .headline p {
+    margin-top: 22px;
+    font-size: 26px; font-weight: 500; color: var(--muted); line-height: 1.4;
+    max-width: 32ch;
+  }
+
+  /* the ceiling curve over the staircase — the explainer's annotated motif */
+  .fig { width: 430px; height: 320px; }
+  .fig text {
+    font-family: var(--sans); font-weight: 800;
+    font-variant-numeric: tabular-nums;
+  }
+  .fig .pct { font-size: 38px; fill: var(--ink); }
+  .fig .plab { font-size: 19px; font-weight: 750; fill: var(--warn); }
+
+  .chips { display: flex; gap: 14px; }
+  .chip {
+    padding: 12px 22px;
+    border-radius: 999px;
+    border: 2px solid var(--line);
+    background: var(--card);
+    color: var(--muted);
+    font-size: 21px; font-weight: 650;
+  }
+  .chip--v { border-color: var(--violet); color: var(--violet); }
+</style>
+</head>
+<body>
+  <div class="frame">
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+        <g fill="#9B82FF">
+          <rect x="4"  y="14" width="18" height="46" rx="2"/>
+          <rect x="23" y="24" width="18" height="36" rx="2"/>
+          <rect x="42" y="34" width="18" height="26" rx="2"/>
+        </g>
+        <g fill="#0E0D12" opacity="0.85">
+          <rect x="7"  y="17" width="3" height="3"/><rect x="12" y="17" width="3" height="3"/>
+          <rect x="26" y="27" width="3" height="3"/><rect x="31" y="27" width="3" height="3"/>
+          <rect x="45" y="37" width="3" height="3"/><rect x="50" y="37" width="3" height="3"/>
+        </g>
+        <circle cx="41" cy="24" r="8.5" fill="#0E0D12"/>
+        <circle cx="41" cy="24" r="8.5" fill="none" stroke="#FFB65C" stroke-width="3"/>
+        <circle cx="41" cy="24" r="3" fill="#FFB65C"/>
+      </svg>
+      <div class="wordmark">girvi <span>explained</span></div>
+    </div>
+
+    <div class="mid">
+      <div class="headline">
+        <h1>How your gold loan ceiling is <span class="v">actually computed</span></h1>
+        <p>The RBI 2025 tiered LTV caps, the plateaus, bullet vs EMI and margin calls — animated.</p>
+      </div>
+      <svg class="fig" viewBox="0 0 430 320" aria-hidden="true">
+        <!-- staircase -->
+        <g fill="#9B82FF">
+          <rect x="16"  y="96"  width="126" height="188" rx="6"/>
+          <rect x="150" y="142" width="126" height="142" rx="6"/>
+          <rect x="284" y="188" width="126" height="96"  rx="6"/>
+        </g>
+        <g fill="#0E0D12" opacity="0.85">
+          <rect x="28"  y="108" width="7" height="7"/><rect x="40"  y="108" width="7" height="7"/>
+          <rect x="162" y="154" width="7" height="7"/><rect x="174" y="154" width="7" height="7"/>
+          <rect x="296" y="200" width="7" height="7"/><rect x="308" y="200" width="7" height="7"/>
+        </g>
+        <text class="pct" x="79"  y="180" text-anchor="middle">85%</text>
+        <text class="pct" x="213" y="226" text-anchor="middle">80%</text>
+        <text class="pct" x="347" y="272" text-anchor="middle">75%</text>
+        <!-- annotated ceiling curve with plateau shelf -->
+        <path d="M16 60 L142 24 L200 24 L410 -36" fill="none" stroke="#FFB65C" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" transform="translate(0,60)"/>
+        <circle cx="171" cy="84" r="12" fill="#0E0D12"/>
+        <circle cx="171" cy="84" r="12" fill="none" stroke="#FFB65C" stroke-width="5"/>
+        <text class="plab" x="171" y="52" text-anchor="middle">the plateau</text>
+      </svg>
+    </div>
+
+    <div class="chips">
+      <span class="chip chip--v">RBI 2025 Directions · Para 19</span>
+      <span class="chip">interactive ceiling demo</span>
+      <span class="chip">no network — connect-src 'none'</span>
+    </div>
+  </div>
+</body>
+</html>
